@@ -1,0 +1,251 @@
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>start</title>
+  <style media="screen">
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+    *{
+      /* border: 1px solid red; */
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+    body {
+      background-image: url("bck.jpg");
+      background-color: rgb(204, 236, 239);
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      color: rgb(33, 50, 111);
+      font-family: sans-serif;
+    }
+    div {
+      padding: 2em;
+      background-color: rgb(154, 206, 223);
+      width: 60%;
+      /* margin-bottom: 1em; */
+    }
+    p {
+      padding: 1em;
+      font-size: 2em;
+      background-color: rgb(254, 235, 201);
+    }
+    button {
+      background-color: rgb(252, 169, 133);
+      color: inherit;
+      width: 35%;
+      font-size: 1.1em;
+      border-radius: 2em;
+      padding: 0.8em;
+      margin-top: 1em;
+      cursor: pointer;
+    }
+    input {
+      font-size: inherit;
+    }
+    .displayBlock { display: block;}
+    .displayNone { display: none;}
+    #warning { background-color: red;}
+
+  </style>
+</head>
+
+<body>
+  <div id="inputPanel">
+        <h3>A few questions for you</h3>
+
+    <p>A first name:
+      <input id="firstName" type="text" placeholder="first name">
+    </p>
+    <p>A last name:
+      <input id="lastName" type="text" placeholder="last name">
+    </p>
+    <p>Your age:
+      <input id="age" type="text" placeholder="age">
+    </p>
+    <p>Your favorite color:
+      <input id="favColor" type="text" placeholder="favorite color">
+    </p>
+    <p>Somewhere to visit:
+      <input id="place" type="text" placeholder="place">
+    </p>
+    <p>Best Friend:
+      <input id="bestFriend" type="text" placeholder="best friend">
+    </p>
+    <p>Your best friend's age:
+      <input id="friendAge" type="text" placeholder="friend's age">
+    </p>
+    <p>Your best friend's favorite color:
+      <input id="favColorFriend" type="text" placeholder="friend's favorite color">
+    </p>
+    <p>Month:
+      <input id="month" type="text" placeholder="month">
+    </p>
+    <p>Date:
+      <input id="date" type="text" placeholder="date">
+    </p>
+
+        <button id="submit">Submit your answers</button>
+
+
+    <p id="warning">Please answer all questions.</p>
+
+
+  </div>
+
+  <div id="outputPanel">
+    <p>Your story....</p>
+    <p id="theStory"></p>
+    <p id="theStory2"></p>
+    <p id="theStory3"></p>
+
+    <button id="again">Again?</button>
+  </div>
+
+
+  <script>
+  //variables to hold references to markup elements
+
+  let inputPanel = document.querySelector ('#inputPanel');
+  let outputPanel = document.querySelector ('#outputPanel');
+  let submit = document.querySelector ('#submit');
+  let again = document.querySelector ('#again');
+  let firstName = document.querySelector ('#firstName');
+  let lastName = document.querySelector ('#lastName');
+  let age = document.querySelector ('#age');
+  let favColor = document.querySelector ('#favColor');
+  let place = document.querySelector ('#place');
+  let bestFriend = document.querySelector ('#bestFriend');
+  let friendAge = document.querySelector ('#friendAge');
+  let favColorFriend = document.querySelector ('#favColorFriend');
+  let month = document.querySelector ('#month');
+  let date = document.querySelector ('#date');
+  let warning = document.querySelector ('#warning');
+  let theStory = document.querySelector ('#theStory');
+  let theStory2 = document.querySelector ('#theStory2');
+  let theStory3 = document.querySelector ('#theStory3');
+  submit.style.cursor = 'pointer'
+  again.style.cursor = 'pointer'
+
+
+
+  //button event listeners
+  // submit.addEventListener ('click', writeStory,false)
+  submit.addEventListener ('click', checkComplete,false)
+
+  again.addEventListener ('click', resetPage,false)
+
+  window.addEventListener('keydown', keyDownHandler, false)
+
+  outputPanel.className = 'displayNone'
+  warning.className = 'displayNone'
+  firstName.focus()
+
+  //action functions
+
+  function keyDownHandler (evt){
+  // do something when the enter kewy is pressed
+// enter keycode is 13
+  console.log("evt.keyCode");
+
+  if (evt.keyCode == 13){
+    console.keyKode("enter pressed")
+  checkComplete()
+    }
+  }
+
+    function checkComplete () {
+
+    console.log("checkComplete");
+    //verify the user filled in the form
+
+    if (firstName.value == ""){
+      warning.textContent = "Please provide a name."
+      warning.className = "displayBlock"
+    }else if (lastName.value == ""){
+        warning.textContent = "Please provide a last name."
+        warning.className = "displayBlock"
+    }else if (age.value == ""){
+            warning.textContent = "Please provide your age."
+            warning.className = "displayBlock"
+    }else if (favColor.value == ""){
+      warning.textContent = "Please provide a color."
+      warning.className = "displayBlock"
+    }else if(place.value == ""){
+      warning.textContent = "Please provide a location."
+      warning.className = "displayBlock"
+    }else if(bestFriend.value == ""){
+      warning.textContent = "Please provide your best friend's name."
+      warning.className = "displayBlock"
+    }else if(friendAge.value == ""){
+      warning.textContent = "Please provide your best friend's age."
+      warning.className = "displayBlock"
+    }else if(favColorFriend.value == ""){
+      warning.textContent = "Please provide your best friend's favorite color."
+      warning.className = "displayBlock"
+    }else if(month.value == ""){
+      warning.textContent = "Please provide a month."
+      warning.className = "displayBlock"
+    }else if(date.value == ""){
+      warning.textContent = "Please provide date."
+      warning.className = "displayBlock"
+    }else {
+      writeStory()
+    }
+    }
+
+
+    function writeStory() {
+      //grab the input values to write the story
+
+      console.log("writeStory");
+
+      inputPanel.className = 'displayNone'
+      outputPanel.className = 'displayBlock'
+
+      let finishedStory1 = ""
+      let finishedStory2 = ""
+      let finishedStory3 = ""
+
+      finishedStory1 = firstName.value + " " + lastName.value + ", Welcome! "
+      finishedStory2 += " You are " + age.value + " years old. "
+      finishedStory2 += "Your favorite color is " + favColor.value + ". "
+      finishedStory2 += " You will be traveling to " + place.value
+      finishedStory2 += " with" + " " + bestFriend.value
+      finishedStory2 += " who is" + " " + friendAge.value + " years old,"
+      finishedStory2 += " and " + " " + bestFriend.value + "'s favorite color is " + favColorFriend.value + ". "
+      finishedStory2 += " You will go back home on" + " " + month.value + " " + date.value + " after a wonderful time spent together. "
+      finishedStory3 += " Wow! What an interesting story! :) "
+
+      theStory.textContent = finishedStory1
+      theStory2.textContent = finishedStory2
+      theStory3.textContent = finishedStory3
+
+      again.focus()
+
+          }
+
+    function resetPage() {
+      //put stuff here to reset the page so the user can try again
+      console.log('reset page')
+
+      inputPanel.className = 'displayBlock'
+      outputPanel.className = 'displayNone'
+
+      firstName.value = ""
+      lastName.value = ""
+      age.value = ""
+      favColor.value = ""
+      place.value = ""
+      bestFriend.value = ""
+      friendAge.value = ""
+      month.value = ""
+      date.value = ""
+      warning.className = 'displayNone'
+
+    }
+
+  </script>
+</body>
+
+</html>
